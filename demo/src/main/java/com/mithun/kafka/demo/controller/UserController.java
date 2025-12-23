@@ -1,26 +1,29 @@
 package com.mithun.kafka.demo.controller;
 
-import com.mithun.kafka.demo.mongo.User;
+import com.mithun.kafka.demo.model.UserDTO;
+import com.mithun.kafka.demo.mongo.UserDocument;
 import com.mithun.kafka.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mithun.kafka.demo.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@AllArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final UserService userService;
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserDocument> getAllUsers() {
         return userRepository.findAll();
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
+    public UserDTO createUser(@RequestBody UserDTO user) {
+        return userService.processUserEvent(user);
     }
 }
