@@ -22,7 +22,7 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public UserDTO createUser(@RequestBody UserDTO user) {
         return userService.processUserEvent(user);
     }

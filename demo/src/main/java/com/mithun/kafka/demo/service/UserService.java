@@ -25,7 +25,7 @@ public class UserService {
         UserEvent userEvent = UserMapper.INSTANCE.toEvent(user);
         userEvent.setEventType("UserEvent");
         userEvent.setTimestamp(System.currentTimeMillis());
-        eventProducer.publish("user.topic", "test", userEvent);
+        eventProducer.publish("user_details", "test", userEvent);
         userRepository.save(userDocument);
         log.info("User document successfully inserted into DB : {}", userDocument);
         return user;
